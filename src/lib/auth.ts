@@ -9,7 +9,10 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  debug: true,
+  pages: {
+    signIn: "/sign-in",
+  },
+  // debug: true,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -29,6 +32,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
+      db.user.findFirst({});
       const dbUser = await db.user.findFirst({
         where: {
           email: token.email,
@@ -36,7 +40,9 @@ export const authOptions: NextAuthOptions = {
       });
 
       if (!dbUser) {
-        token.id = user!.id;
+        if (user) {
+          token.id = user.id;
+        }
         return token;
       }
 
@@ -58,9 +64,6 @@ export const authOptions: NextAuthOptions = {
         picture: dbUser.image,
         username: dbUser.username,
       };
-    },
-    redirect() {
-      return "/";
     },
   },
 };
