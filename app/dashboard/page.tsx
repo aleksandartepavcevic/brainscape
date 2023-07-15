@@ -1,5 +1,6 @@
 import SignOut from "@/components/SignOut/SignOut";
 import { getUserSession } from "@/lib/session";
+import Link from "next/link";
 import React from "react";
 
 const Dashboard = async () => {
@@ -9,6 +10,7 @@ const Dashboard = async () => {
       <h1 className="mb-4">Dashboard</h1>
       <p>{user?.name}</p>
       <p>{user?.email}</p>
+      <Link href="/profile">Go to profile</Link>
       <SignOut />
     </div>
   );

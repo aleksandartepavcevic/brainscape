@@ -1,5 +1,5 @@
 import React from "react";
-import SignInForm from "../../components/SignInForm/SignInForm";
+import SignInForm from "../../components/SignInForm";
 import Image from "next/image";
 
 import LogoImage from "@/../public/logo.png";

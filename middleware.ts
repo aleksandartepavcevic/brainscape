@@ -23,18 +23,7 @@ export default withAuth(
       return null;
     }
 
-    if (!isAuth) {
-      let callbackUrl = req.nextUrl.pathname;
-
-      if (req.nextUrl.search) callbackUrl += req.nextUrl.search;
-
-      return NextResponse.redirect(
-        new URL(
-          `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`,
-          req.url
-        )
-      );
-    }
+    if (!isAuth) return NextResponse.redirect(new URL(`/sign-in`, req.url));
   },
   {
     callbacks: {
@@ -46,5 +35,11 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/", "/dashboard/:path*", "/sign-in", "/sign-up"],
+  matcher: [
+    "/",
+    "/dashboard/:path*",
+    "/sign-in",
+    "/sign-up",
+    "/profile/:path*",
+  ],
 };
