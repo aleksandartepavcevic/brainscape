@@ -4,7 +4,7 @@ export default function SignInLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex flex-col justify-center items-center p-6">
+    <div className="h-screen flex flex-col justify-center items-center p-6 ">
       {children}
     </div>
   );
