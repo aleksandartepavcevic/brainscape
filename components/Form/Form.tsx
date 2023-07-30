@@ -15,7 +15,7 @@ interface FormProps<T extends FieldValues = FieldValues>
 
 const Form = ({ defaultValues, onSubmit, children }: FormProps) => {
   const methods = useForm({
-    mode: "onBlur",
+    mode: "all",
     defaultValues,
   });
   return (
