@@ -6,12 +6,7 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
-
-interface FormProps<T extends FieldValues = FieldValues>
-  extends PropsWithChildren,
-    Pick<UseFormProps, "defaultValues"> {
-  onSubmit: SubmitHandler<T>;
-}
+import { FormProps } from "./Form.types";
 
 const Form = ({ defaultValues, onSubmit, children }: FormProps) => {
   const methods = useForm({

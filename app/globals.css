@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .outline-focus {
+    @apply outline-dashed outline-sky-700 outline-1 outline-offset-4;
+  }
+}

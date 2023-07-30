@@ -1,9 +1,5 @@
 import { cva } from "class-variance-authority";
-import React from "react";
-
-interface InputErrorMessageProps {
-  message: string;
-}
+import { InputErrorMessageProps } from "./InputErrorMessage.types";
 
 const inputErrorMessage = cva([
   "absolute",

@@ -1,10 +1,6 @@
 import { cva } from "class-variance-authority";
-import React, { memo } from "react";
-
-interface InputAdornmentProps {
-  position: "start" | "end";
-  adornment: React.ReactNode;
-}
+import { memo } from "react";
+import { InputAdornmentProps } from "./InputAdornment.types";
 
 const inputAdornment = cva(
   ["absolute", "z-3", "flex", "h-fit", "inset-y-1/2", "-translate-y-[50%]"],
