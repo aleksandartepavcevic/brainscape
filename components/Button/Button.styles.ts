@@ -1,5 +1,7 @@
 import { cva } from "class-variance-authority";
 
+// TODO: Fix issue with the outline on the safari
+
 export const buttonStyles = cva(
   [
     "flex",
