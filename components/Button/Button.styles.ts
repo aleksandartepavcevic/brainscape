@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
 // TODO: Fix issue with the outline on the safari
+// TODO: Fix issue with rounded-full for the icon variant
 
 export const buttonStyles = cva(
   [
@@ -9,7 +10,7 @@ export const buttonStyles = cva(
     "justify-center",
     "focus:outline-focus",
     "rounded-lg",
-    "transition-all",
+    "transition-colors",
     "duration-300",
   ],
   {

@@ -15,7 +15,7 @@ export const inputStyles = cva(
     "outline-0",
     "focus:border-sky-500",
     "focus:outline-focus",
-    "transition-all",
+    "transition-colors",
     "duration-300",
   ],
   {

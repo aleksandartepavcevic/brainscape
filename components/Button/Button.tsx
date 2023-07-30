@@ -14,7 +14,8 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button className={buttonStyles({ variant, size, className })} {...rest}>
-      {loading ? <LoadingSpinner text={loadingText} /> : children}
+      {loading && <LoadingSpinner text={loadingText} variant={variant} />}
+      {!loading && children}
     </button>
   );
 };

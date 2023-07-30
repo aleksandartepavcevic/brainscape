@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import { db } from "./db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
 import { nanoid } from "nanoid";
 
 export const authOptions: NextAuthOptions = {
@@ -12,8 +13,30 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
   },
-  // debug: true,
+  debug: true,
   providers: [
+    Credentials({
+      type: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "Email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const { email, password } = credentials || {};
+
+        if (email && password) {
+          const dbUser = await db.user.findUnique({
+            where: {
+              email_password: { email, password },
+            },
+          });
+
+          if (dbUser) return dbUser;
+        }
+
+        return null;
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -21,21 +44,14 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ token, session }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.username = token.username;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-      }
+      if (token) session.user = token;
 
       return session;
     },
     async jwt({ token, user }) {
-      db.user.findFirst({});
       const dbUser = await db.user.findFirst({
         where: {
-          email: token.email,
+          email: String(token.email),
         },
       });
 

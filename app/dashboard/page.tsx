@@ -5,6 +5,7 @@ import React from "react";
 
 const Dashboard = async () => {
   const user = await getUserSession();
+  console.log(user);
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       <h1 className="mb-4">Dashboard</h1>
