@@ -5,6 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { nanoid } from "nanoid";
 
+const NODE_ENV = process.env.NODE_ENV;
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   session: {
@@ -13,7 +15,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
   },
-  debug: true,
+  debug: NODE_ENV === "development" ? true : false,
   providers: [
     Credentials({
       type: "credentials",

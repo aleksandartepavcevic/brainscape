@@ -13,6 +13,10 @@ export const SignInFormFields = () => {
 
   const isSubmitting = formState.isSubmitting;
 
+  const handleShowPassword = () => {
+    setShowPassword((s) => !s);
+  };
+
   return (
     <div className="flex flex-col">
       <Input
@@ -32,10 +36,7 @@ export const SignInFormFields = () => {
             type="button"
             variant="icon"
             size="small"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowPassword((s) => !s);
-            }}
+            onClick={handleShowPassword}
           >
             {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
           </Button>

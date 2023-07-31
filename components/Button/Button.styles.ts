@@ -9,9 +9,9 @@ export const buttonStyles = cva(
     "items-center",
     "justify-center",
     "focus:outline-focus",
-    "rounded-lg",
     "transition-colors",
     "duration-300",
+    "rounded-lg",
   ],
   {
     variants: {
