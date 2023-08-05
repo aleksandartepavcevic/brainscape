@@ -1,18 +1,17 @@
 "use client";
 
 import Form from "../Form";
-import GoogleButton from "../Button/components/GoogleButton";
 import { signIn } from "next-auth/react";
-import SignInFormFields from "./components/SignInFormFields";
 import { useSnackbar } from "@/hooks/useSnackbar";
-import { SignInFormValues } from "./SignInForm.types";
+import { SignUpFormValues } from "./SingUpForm.types";
 import { useRouter } from "next/navigation";
+import SignUpFormFields from "./components/SignInFormFields";
 
-export const SignInForm = () => {
+const SignUpForm = () => {
   const router = useRouter();
   const { enqueueErrorSnackbar } = useSnackbar();
 
-  const handleSubmit = async (values: SignInFormValues) => {
+  const handleSubmit = async (values: SignUpFormValues) => {
     try {
       const response = await signIn("credentials", {
         email: values.email,
@@ -29,19 +28,14 @@ export const SignInForm = () => {
 
   return (
     <div className="w-full flex flex-col">
-      <Form<SignInFormValues>
+      <Form<SignUpFormValues>
         onSubmit={handleSubmit}
-        defaultValues={{ email: "", password: "" }}
+        defaultValues={{ email: "", password: "", confirmPassword: "" }}
       >
-        <SignInFormFields />
+        <SignUpFormFields />
       </Form>
-
-      <div className="flex gap-4 items-center my-4">
-        <span className="w-full h-[1px] bg-gray-200 block"></span>
-        <p className="text-sm text-gray-400 font-light">or</p>
-        <span className="w-full h-[1px] bg-gray-200 block"></span>
-      </div>
-      <GoogleButton />
     </div>
   );
 };
+
+export default SignUpForm;

@@ -1,9 +1,10 @@
 import { VariantProps } from "class-variance-authority";
-import { buttonStyles } from "./Button.styles";
+import { button } from "./Button.styles";
 
+export interface ButtonVariants extends VariantProps<typeof button> {}
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonStyles> {
+    Omit<ButtonVariants, "disabled"> {
   children?: React.ReactNode;
   loading?: boolean;
   loadingText?: string;

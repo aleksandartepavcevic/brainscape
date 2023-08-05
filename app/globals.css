@@ -4,6 +4,10 @@
 
 @layer utilities {
   .outline-focus {
-    @apply outline-dashed outline-sky-700 outline-1 outline-offset-4;
+    @apply outline-dashed outline-1 outline-offset-4 outline-sky-500;
+  }
+
+  .outline-focus-error {
+    @apply outline-dashed outline-1 outline-offset-4 outline-red-500;
   }
 }

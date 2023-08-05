@@ -1,14 +1,17 @@
-import { cva } from "class-variance-authority";
+import { VariantProps, cva } from "class-variance-authority";
+import { twMerge } from "tailwind-merge";
+import { ButtonVariants } from "./Button.types";
 
 // TODO: Fix issue with the outline on the safari
 // TODO: Fix issue with rounded-full for the icon variant
 
-export const buttonStyles = cva(
+export const button = cva(
   [
     "flex",
     "items-center",
     "justify-center",
     "focus:outline-focus",
+    "outline-sky-500",
     "transition-colors",
     "duration-300",
     "rounded-lg",
@@ -35,10 +38,22 @@ export const buttonStyles = cva(
         medium: ["p-3", "text-md"],
         large: ["p-5", "text-lg"],
       },
+      disabled: {
+        true: [
+          "bg-gray-500",
+          "focus:bg-gray-500",
+          "hover:bg-gray-500",
+          "cursor-not-allowed",
+        ],
+      },
     },
     defaultVariants: {
       variant: "contained",
       size: "medium",
+      disabled: false,
     },
   }
 );
+
+export const buttonStyles = (variants: ButtonVariants, className?: string) =>
+  twMerge(button({ ...variants, className }));

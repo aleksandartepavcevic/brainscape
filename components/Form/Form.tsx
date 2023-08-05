@@ -1,9 +1,15 @@
+"use client";
+
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { FormProps } from "./Form.types";
 
-const Form = ({ defaultValues, onSubmit, children }: FormProps) => {
-  const methods = useForm({
+const Form = <T extends FieldValues>({
+  defaultValues,
+  onSubmit,
+  children,
+}: FormProps<T>) => {
+  const methods = useForm<T>({
     mode: "all",
     defaultValues,
   });

@@ -9,15 +9,12 @@ import { useFormContext } from "react-hook-form";
 import { EMAIL_REGEX } from "@/constants/regex";
 import { errorMessageMap } from "@/components/Form/Form.constants";
 
-export const SignInFormFields = () => {
+const SignUpFormFields = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { formState } = useFormContext();
 
   const { isSubmitting, isValid } = formState;
-
-  const handleShowPassword = () => {
-    setShowPassword((s) => !s);
-  };
 
   return (
     <div className="flex flex-col">
@@ -42,9 +39,27 @@ export const SignInFormFields = () => {
             type="button"
             variant="icon"
             size="small"
-            onClick={handleShowPassword}
+            onClick={() => setShowPassword((s) => !s)}
           >
             {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+          </Button>
+        }
+        options={{
+          required: true,
+        }}
+      />
+      <Input
+        type={showConfirmPassword ? "text" : "password"}
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        endAdornment={
+          <Button
+            type="button"
+            variant="icon"
+            size="small"
+            onClick={() => setShowConfirmPassword((s) => !s)}
+          >
+            {showConfirmPassword ? <EyeSlashIcon /> : <EyeIcon />}
           </Button>
         }
         options={{
@@ -57,8 +72,10 @@ export const SignInFormFields = () => {
         disabled={!isValid}
         loading={isSubmitting}
       >
-        Sign in
+        Sign up
       </Button>
     </div>
   );
 };
+
+export default SignUpFormFields;

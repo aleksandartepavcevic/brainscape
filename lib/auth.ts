@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { nanoid } from "nanoid";
+import { enqueueSnackbar } from "@/lib/notistack";
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -23,11 +24,11 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { email, password } = credentials || {};
 
         if (email && password) {
-          const dbUser = await db.user.findUnique({
+          const dbUser = await db.user.findUniqueOrThrow({
             where: {
               email_password: { email, password },
             },

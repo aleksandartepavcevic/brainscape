@@ -1,36 +1,36 @@
 import React from "react";
 import Image from "next/image";
-
-import LogoImage from "@/../public/logo.png";
-import SignInForm from "@/components/SignInForm";
 import Link from "next/link";
 
-const SignInPage = () => {
+import LogoImage from "@/../public/logo.png";
+import SignUpForm from "@/components/SignUpForm";
+
+const SignUpPage = () => {
   return (
     <div className="w-full pb-6">
       <div className="relative w-[200px] h-[200px] mx-auto">
         <Image
           src={LogoImage}
           alt="Brainscape logo"
-          style={{ objectFit: "cover" }}
-          fill
+          layout="fill"
+          objectFit="cover"
         />
       </div>
       <div className="mb-4">
-        <h1 className="text-xl font-medium">Sign in to your account</h1>
+        <h1 className="text-xl font-medium">Sign up to your account</h1>
         <p className="text-sm font-light text-black/50">
-          Enter your credentials to access your account
+          Enter credentials for your account
         </p>
       </div>
-      <SignInForm />
+      <SignUpForm />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
-        Don&apos;t have an account?{" "}
+        Already have an account?{" "}
         <Link href="/sign-up" className="font-medium text-black">
-          Sign up here!
+          Sign in here!
         </Link>
       </p>
     </div>
   );
 };
 
-export default SignInPage;
+export default SignUpPage;

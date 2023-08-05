@@ -1,9 +1,9 @@
-import { VariantProps } from "class-variance-authority";
-import { loadingSpinnerStyles } from "./LoadingSpinner.styles";
-import { buttonStyles } from "../Button/Button.styles";
+import { ButtonVariants } from "../Button/Button.styles";
+import { LoadingSpinnerVariants } from "./LoadingSpinner.styles";
 
 export interface LoadingSpinnerProps
-  extends React.HtmlHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof buttonStyles> {
+  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, "color">,
+    LoadingSpinnerVariants {
+  variant?: ButtonVariants["variant"];
   text?: string;
 }

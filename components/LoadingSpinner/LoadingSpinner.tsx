@@ -7,18 +7,20 @@ export const LoadingSpinner = ({
   text,
   variant,
 }: LoadingSpinnerProps) => {
-  const color = !variant ? "white" : "black";
+  const color = variant === "contained" ? "white" : "black";
 
   return (
     <div className="flex items-center gap-2">
       <div
-        className={loadingSpinnerStyles({
-          color,
-          className,
-        })}
+        className={loadingSpinnerStyles(
+          {
+            color,
+          },
+          className
+        )}
         role="status"
       />
-      {text && <p>{text}Loading...</p>}
+      {text && <p>{text}</p>}
     </div>
   );
 };

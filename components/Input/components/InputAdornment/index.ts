@@ -1,3 +1,3 @@
-import { InputAdornment } from "./InputAdornment";
+import InputAdornment from "./InputAdornment";
 
 export default InputAdornment;
