@@ -1,7 +1,8 @@
-import { VariantProps, cva } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import { LoadingSpinnerVariants } from "./LoadingSpinner.types";
 
-const loadingSpinner = cva(
+export const loadingSpinner = cva(
   [
     "inline-block animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]",
   ],
@@ -23,9 +24,6 @@ const loadingSpinner = cva(
     },
   }
 );
-
-export interface LoadingSpinnerVariants
-  extends VariantProps<typeof loadingSpinner> {}
 
 export const loadingSpinnerStyles = (
   variants: LoadingSpinnerVariants,
