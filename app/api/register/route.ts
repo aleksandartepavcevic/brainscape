@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       },
     });
 
-    resend.sendEmail({
+    const emailData = await resend.sendEmail({
       from: "onboarding@resend.dev",
       to: body.email,
       subject: "Welcome to Brainscape!",
@@ -53,6 +53,7 @@ export async function POST(req: Request) {
       {
         message:
           "User has been successfully created. Please verify your email.",
+        email: emailData,
       },
       { status: 200 }
     );
