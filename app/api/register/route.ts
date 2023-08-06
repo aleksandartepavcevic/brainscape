@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const baseUrl = process.env.BASE_URL
+  ? `https://${process.env.BASE_URL}`
   : "http://localhost:3000";
 
 interface CreateUserPayload {
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const emailData = await resend.sendEmail({
+    await resend.sendEmail({
       from: "onboarding@resend.dev",
       to: body.email,
       subject: "Welcome to Brainscape!",
@@ -53,7 +53,6 @@ export async function POST(req: Request) {
       {
         message:
           "User has been successfully created. Please verify your email.",
-        email: emailData,
       },
       { status: 200 }
     );
