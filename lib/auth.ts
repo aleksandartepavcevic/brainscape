@@ -4,8 +4,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { nanoid } from "nanoid";
-import { enqueueSnackbar } from "@/lib/notistack";
 
+const bcrypt = require("bcrypt");
 const NODE_ENV = process.env.NODE_ENV;
 
 export const authOptions: NextAuthOptions = {
@@ -15,8 +15,9 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/sign-in",
+    newUser: "/sign-up",
   },
-  debug: NODE_ENV === "development" ? true : false,
+  debug: NODE_ENV === "development",
   providers: [
     Credentials({
       type: "credentials",
@@ -25,16 +26,21 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials || {};
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
-        if (email && password) {
-          const dbUser = await db.user.findUniqueOrThrow({
-            where: {
-              email_password: { email, password },
-            },
-          });
+        const dbUser = await db.user.findUniqueOrThrow({
+          where: {
+            email,
+          },
+        });
 
-          if (dbUser) return dbUser;
+        if (dbUser) {
+          const isValid = await bcrypt.compare(password, dbUser.password);
+
+          return isValid && dbUser;
         }
 
         return null;

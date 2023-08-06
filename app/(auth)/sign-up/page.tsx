@@ -25,7 +25,7 @@ const SignUpPage = () => {
       <SignUpForm />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
         Already have an account?{" "}
-        <Link href="/sign-up" className="font-medium text-black">
+        <Link href="/sign-in" className="font-medium text-black">
           Sign in here!
         </Link>
       </p>

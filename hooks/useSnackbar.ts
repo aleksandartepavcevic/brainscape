@@ -7,7 +7,7 @@ export const useSnackbar = () => {
   const { enqueueSnackbar } = useNotistackSnackbar();
   const defaultConfig = {
     anchorOrigin: { vertical: "top", horizontal: "center" },
-    autoHideDuration: 3000,
+    autoHideDuration: 4000,
   } as OptionsObject;
 
   const enqueueSuccessSnackbar = (message: string) =>

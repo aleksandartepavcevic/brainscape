@@ -1,28 +1,41 @@
 "use client";
 
 import Form from "../Form";
-import { signIn } from "next-auth/react";
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { SignUpFormValues } from "./SingUpForm.types";
 import { useRouter } from "next/navigation";
 import SignUpFormFields from "./components/SignInFormFields";
+import axios, { AxiosError } from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const SignUpForm = () => {
   const router = useRouter();
-  const { enqueueErrorSnackbar } = useSnackbar();
+  const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
+
+  const useRegisterMutation = useMutation({
+    mutationFn: (payload: Pick<SignUpFormValues, "email" | "password">) =>
+      axios.post("/api/register", payload),
+  });
 
   const handleSubmit = async (values: SignUpFormValues) => {
+    // Change this later
+    if (values.password !== values.confirmPassword) return;
+
     try {
-      const response = await signIn("credentials", {
+      const res = await useRegisterMutation.mutateAsync({
         email: values.email,
         password: values.password,
-        redirect: false,
       });
 
-      if (response?.error) enqueueErrorSnackbar(response.error);
-      if (response?.error === null) router.push("/dashboard");
-    } catch (err) {
-      throw new Error("Something went wrong!");
+      enqueueSuccessSnackbar(res.data.message);
+      router.push("/sign-in");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const { response } = error;
+        const { data } = response || {};
+
+        enqueueErrorSnackbar(data.message);
+      }
     }
   };
 

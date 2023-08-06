@@ -13,18 +13,14 @@ export const SignInForm = () => {
   const { enqueueErrorSnackbar } = useSnackbar();
 
   const handleSubmit = async (values: SignInFormValues) => {
-    try {
-      const response = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        redirect: false,
-      });
-
-      if (response?.error) enqueueErrorSnackbar(response.error);
-      if (response?.error === null) router.push("/dashboard");
-    } catch (err) {
-      throw new Error("Something went wrong!");
-    }
+    const res = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
+    if (res?.error)
+      enqueueErrorSnackbar(`Credentials doesn't match, please try again.`);
+    if (res?.error === null) router.push("/dashboard");
   };
 
   return (

@@ -7,7 +7,6 @@ export const container = cva(
     "relative",
     "flex",
     "items-center",
-    "pr-3",
     "rounded-lg",
     "bg-gray-300/10",
     "border",
@@ -46,7 +45,7 @@ export const container = cva(
 
 export const input = cva([
   "w-full",
-  "pl-3",
+  "px-3",
   "py-3",
   "font-light",
   "text-black",

@@ -26,8 +26,6 @@ const Input = ({
   const required = Boolean(options?.required);
   const placeholderText = !required ? placeholder : placeholder + "*";
 
-  console.log(isFocused);
-
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
     onFocus?.(event);
