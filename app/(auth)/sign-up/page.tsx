@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import LogoImage from "@/../public/logo.png";
 import SignUpForm from "@/components/SignUpForm";
+import Link from "@/components/Link";
 
 const SignUpPage = () => {
   return (
@@ -12,8 +12,8 @@ const SignUpPage = () => {
         <Image
           src={LogoImage}
           alt="Brainscape logo"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
         />
       </div>
       <div className="mb-4">
@@ -24,10 +24,7 @@ const SignUpPage = () => {
       </div>
       <SignUpForm />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
-        Already have an account?{" "}
-        <Link href="/sign-in" className="font-medium text-black">
-          Sign in here!
-        </Link>
+        Already have an account? <Link href="/sign-in">Sign in here!</Link>
       </p>
     </div>
   );

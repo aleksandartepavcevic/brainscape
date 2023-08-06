@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import LogoImage from "@/../public/logo.png";
 import SignInForm from "@/components/SignInForm";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const SignInPage = () => {
   return (
@@ -24,10 +24,7 @@ const SignInPage = () => {
       </div>
       <SignInForm />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
-        Don&apos;t have an account?{" "}
-        <Link href="/sign-up" className="font-medium text-black">
-          Sign up here!
-        </Link>
+        Don&apos;t have an account? <Link href="/sign-up">Sign up here!</Link>
       </p>
     </div>
   );

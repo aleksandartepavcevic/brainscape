@@ -3,15 +3,18 @@
 import React from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { FormProps } from "./Form.types";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Form = <T extends FieldValues>({
   defaultValues,
   onSubmit,
   children,
+  schema,
 }: FormProps<T>) => {
   const methods = useForm<T>({
     mode: "all",
     defaultValues,
+    resolver: yupResolver(schema),
   });
   return (
     <FormProvider {...methods}>

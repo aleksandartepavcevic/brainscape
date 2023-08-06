@@ -7,6 +7,7 @@ import SignInFormFields from "./components/SignInFormFields";
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { SignInFormValues } from "./SignInForm.types";
 import { useRouter } from "next/navigation";
+import { signInFormSchema } from "./SignInForm.schema";
 
 export const SignInForm = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ export const SignInForm = () => {
       <Form<SignInFormValues>
         onSubmit={handleSubmit}
         defaultValues={{ email: "", password: "" }}
+        schema={signInFormSchema}
       >
         <SignInFormFields />
       </Form>

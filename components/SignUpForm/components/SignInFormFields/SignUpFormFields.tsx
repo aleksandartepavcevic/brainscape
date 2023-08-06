@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import EyeIcon from "@/components/Icons/Eye";
 import EyeSlashIcon from "@/components/Icons/EyeSlash";
@@ -18,18 +18,7 @@ const SignUpFormFields = () => {
 
   return (
     <div className="flex flex-col">
-      <Input
-        type="email"
-        name="email"
-        placeholder="Email"
-        options={{
-          required: true,
-          pattern: {
-            value: EMAIL_REGEX,
-            message: errorMessageMap["email"],
-          },
-        }}
-      />
+      <Input type="email" name="email" placeholder="Email" />
       <Input
         type={showPassword ? "text" : "password"}
         name="password"
@@ -44,9 +33,6 @@ const SignUpFormFields = () => {
             {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
           </Button>
         }
-        options={{
-          required: true,
-        }}
       />
       <Input
         type={showConfirmPassword ? "text" : "password"}
@@ -62,9 +48,6 @@ const SignUpFormFields = () => {
             {showConfirmPassword ? <EyeSlashIcon /> : <EyeIcon />}
           </Button>
         }
-        options={{
-          required: true,
-        }}
       />
       <Button
         type="submit"

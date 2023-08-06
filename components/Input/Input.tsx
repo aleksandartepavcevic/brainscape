@@ -10,7 +10,6 @@ import { InputProps } from "./Input.types";
 const Input = ({
   name,
   placeholder,
-  options,
   onFocus,
   onBlur,
   endAdornment,
@@ -23,8 +22,6 @@ const Input = ({
   const [isFocused, setIsFocused] = useState(false);
   const errorMessage = errors[name]?.message as string;
   const error = Boolean(errorMessage);
-  const required = Boolean(options?.required);
-  const placeholderText = !required ? placeholder : placeholder + "*";
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
@@ -44,10 +41,9 @@ const Input = ({
       })}`}
     >
       <input
-        {...register(name, options)}
+        {...register(name)}
         className={`${inputStyles()}`}
-        required={required}
-        placeholder={placeholderText}
+        placeholder={placeholder}
         onFocus={handleFocus}
         onBlur={handleBlur}
         {...rest}
