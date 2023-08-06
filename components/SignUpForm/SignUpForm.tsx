@@ -10,6 +10,7 @@ import { artificialDelay } from "@/utils/artificialDelay";
 import { signUpFormSchema } from "./SignUpForm.schema";
 
 const SignUpForm = () => {
+  const router = useRouter();
   const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useSnackbar();
 
   const handleSubmit = async (values: SignUpFormValues) => {
@@ -21,8 +22,8 @@ const SignUpForm = () => {
         }),
         1000
       );
-
       enqueueSuccessSnackbar(res.data.message);
+      router.push("/sign-in");
     } catch (error) {
       if (error instanceof AxiosError) {
         const { response } = error;

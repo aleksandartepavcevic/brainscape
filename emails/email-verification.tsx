@@ -2,7 +2,6 @@ import {
   Body,
   Button,
   Container,
-  Column,
   Head,
   Heading,
   Hr,
@@ -10,7 +9,6 @@ import {
   Img,
   Link,
   Preview,
-  Row,
   Section,
   Tailwind,
   Text,
@@ -21,10 +19,6 @@ interface EmailVerificationProps {
   username?: string;
   verifyLink?: string;
 }
-
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
 
 const EmailVerification = ({
   username = "Alek",
@@ -38,7 +32,7 @@ const EmailVerification = ({
         <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
           <Section className="mt-[32px]">
             <Img
-              src={`${baseUrl}/static/logo.png`}
+              src="../public/logo.png"
               width="150"
               height="150"
               alt="Brainscape"
