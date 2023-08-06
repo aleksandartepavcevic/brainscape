@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@/components/Button";
 import EyeIcon from "@/components/Icons/Eye";
 import EyeSlashIcon from "@/components/Icons/EyeSlash";
 import Input from "@/components/Input";
 import { useFormContext } from "react-hook-form";
-import { EMAIL_REGEX } from "@/constants/regex";
-import { errorMessageMap } from "@/components/Form/Form.constants";
 
 const SignUpFormFields = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +16,7 @@ const SignUpFormFields = () => {
 
   return (
     <div className="flex flex-col">
+      <Input type="text" name="username" placeholder="Username" />
       <Input type="email" name="email" placeholder="Email" />
       <Input
         type={showPassword ? "text" : "password"}

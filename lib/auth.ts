@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { nanoid } from "nanoid";
+import { NextResponse } from "next/server";
 
 const bcrypt = require("bcrypt");
 const NODE_ENV = process.env.NODE_ENV;
@@ -32,19 +33,21 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const dbUser = await db.user.findUniqueOrThrow({
+        const dbUser = await db.user.findUnique({
           where: {
             email,
           },
         });
 
         if (dbUser) {
+          if (!dbUser.emailVerified) throw new Error("Email is not verified");
+
           const isValid = await bcrypt.compare(password, dbUser.password);
 
           return isValid && dbUser;
         }
 
-        return null;
+        throw new Error("The email you entered isn't connected to an account.");
       },
     }),
     GoogleProvider({

@@ -17,6 +17,7 @@ const SignUpForm = () => {
     try {
       const res = await artificialDelay(
         axios.post("/api/register", {
+          username: values.username,
           email: values.email,
           password: values.password,
         }),

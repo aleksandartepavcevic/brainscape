@@ -20,9 +20,7 @@ export const SignInForm = () => {
       redirect: false,
     });
 
-    console.log(res);
-    if (res?.error)
-      enqueueErrorSnackbar(`Credentials doesn't match, please try again.`);
+    if (res?.error) enqueueErrorSnackbar(res.error);
     if (res?.error === null) router.push("/dashboard");
   };
 

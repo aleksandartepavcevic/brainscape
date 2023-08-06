@@ -43,14 +43,12 @@ const EmailVerification = ({
             />
           </Section>
           <Heading className="text-black text-[24px] font-normal text-center p-0 mb-[30px] mx-0">
-            Welcome <strong>{username}</strong> to <strong>Brainscape</strong>
+            Welcome to <strong>Brainscape</strong>
           </Heading>
-          <Text className="text-black text-[14px] leading-[24px]">
-            Hello {username},
-          </Text>
-          <Text className="text-black text-[14px] leading-[24px]">
+          <Text className="text-black text-[14px] my-1">Hello {username},</Text>
+          <Text className="text-black text-[14px] my-1">
             in order to <strong>verify your account</strong>, please click the
-            button below.
+            button below:
           </Text>
 
           <Section className="text-center">

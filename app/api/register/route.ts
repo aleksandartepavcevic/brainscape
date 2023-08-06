@@ -1,3 +1,4 @@
+import { SignUpFormValues } from "@/components/SignUpForm/SingUpForm.types";
 import EmailVerification from "@/emails/email-verification";
 import { db } from "@/lib/db";
 import { resend } from "@/lib/resend";
@@ -9,24 +10,31 @@ const baseUrl = process.env.BASE_URL
   ? `https://${process.env.BASE_URL}`
   : "http://localhost:3000";
 
-interface CreateUserPayload {
-  email: string;
-  password: string;
-}
-
 export async function POST(req: Request) {
   try {
-    const body: CreateUserPayload = await req.json();
+    const body: SignUpFormValues = await req.json();
 
-    const userExists = await db.user.findFirst({
+    const userExistsWithEmail = await db.user.findFirst({
       where: {
         email: body.email,
       },
     });
 
-    if (userExists)
+    const userExistsWithUsername = await db.user.findFirst({
+      where: {
+        username: body.username,
+      },
+    });
+
+    if (userExistsWithEmail)
       return NextResponse.json(
-        { message: "User already exists with this email." },
+        { message: "User already exists with this email.", field: "email" },
+        { status: 409 }
+      );
+
+    if (userExistsWithUsername)
+      return NextResponse.json(
+        { message: "Username is already taken.", field: "username" },
         { status: 409 }
       );
 
@@ -34,6 +42,7 @@ export async function POST(req: Request) {
 
     const newUser = await db.user.create({
       data: {
+        username: body.username,
         email: body.email,
         password: hash,
       },
@@ -44,7 +53,7 @@ export async function POST(req: Request) {
       to: body.email,
       subject: "Welcome to Brainscape!",
       react: EmailVerification({
-        username: "Alek",
+        username: body.username,
         verifyLink: `${baseUrl}/verify/${newUser.id}`,
       }),
     });
