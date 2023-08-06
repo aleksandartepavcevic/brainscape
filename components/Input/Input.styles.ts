@@ -12,6 +12,7 @@ export const container = cva(
     "border",
     "transition-colors",
     "duration-300",
+    "overflow-hidden",
   ],
   {
     variants: {

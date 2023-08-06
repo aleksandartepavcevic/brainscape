@@ -25,18 +25,15 @@ export async function POST(req: Request) {
         { status: 409 }
       );
 
-    await bcrypt.hash(
-      body.password,
-      saltRounds,
-      async (err: any, hash: any) => {
-        await db.user.create({
-          data: {
-            email: body.email,
-            password: hash,
-          },
-        });
-      }
-    );
+    const hash = await bcrypt.hash(body.password, saltRounds);
+
+    if (hash)
+      await db.user.create({
+        data: {
+          email: body.email,
+          password: hash,
+        },
+      });
 
     return NextResponse.json(
       {
