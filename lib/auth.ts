@@ -16,6 +16,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
     newUser: "/sign-up",
+    verifyRequest: "/account-activation",
   },
   debug: NODE_ENV === "development",
   providers: [

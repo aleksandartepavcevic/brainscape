@@ -27,13 +27,12 @@ export async function POST(req: Request) {
 
     const hash = await bcrypt.hash(body.password, saltRounds);
 
-    if (hash)
-      await db.user.create({
-        data: {
-          email: body.email,
-          password: hash,
-        },
-      });
+    await db.user.create({
+      data: {
+        email: body.email,
+        password: hash,
+      },
+    });
 
     return NextResponse.json(
       {
