@@ -1,8 +1,13 @@
+import EmailVerification from "@/emails/email-verification";
 import { db } from "@/lib/db";
+import { resend } from "@/lib/resend";
 import { NextResponse } from "next/server";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
 
 interface CreateUserPayload {
   email: string;
@@ -27,17 +32,27 @@ export async function POST(req: Request) {
 
     const hash = await bcrypt.hash(body.password, saltRounds);
 
-    await db.user.create({
+    const newUser = await db.user.create({
       data: {
         email: body.email,
         password: hash,
       },
     });
 
+    resend.sendEmail({
+      from: "onboarding@resend.dev",
+      to: body.email,
+      subject: "Welcome to Brainscape!",
+      react: EmailVerification({
+        username: "Alek",
+        verifyLink: `${baseUrl}/verify/${newUser.id}`,
+      }),
+    });
+
     return NextResponse.json(
       {
         message:
-          "User has been successfully created. Please confirm your email.",
+          "User has been successfully created. Please verify your email.",
       },
       { status: 200 }
     );
