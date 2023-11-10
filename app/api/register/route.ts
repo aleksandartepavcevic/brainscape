@@ -1,4 +1,4 @@
-import { SignUpFormValues } from "@/features/auth/sign-up/SingUp.types";
+import { SignUpValues } from "@/features/auth/sign-up/SingUp.types";
 import EmailVerification from "@/emails/email-verification";
 import { db } from "@/lib/db";
 import { resend } from "@/lib/resend";
@@ -12,7 +12,7 @@ const baseUrl = process.env.BASE_URL
 
 export async function POST(req: Request) {
   try {
-    const body: SignUpFormValues = await req.json();
+    const body: SignUpValues = await req.json();
 
     await db.user.findFirst({
       where: {
