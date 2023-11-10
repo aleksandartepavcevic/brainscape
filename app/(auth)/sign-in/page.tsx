@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 
 import LogoImage from "@/../public/logo.png";
-import SignInForm from "@/components/SignInForm";
-import Link from "@/components/Link";
+import Link from "@/components/ui/Link";
+import { SignIn } from "@/features/auth";
 
 const SignInPage = () => {
   return (
@@ -22,7 +22,7 @@ const SignInPage = () => {
           Enter your credentials to access your account
         </p>
       </div>
-      <SignInForm />
+      <SignIn />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
         Don&apos;t have an account? <Link href="/sign-up">Sign up here!</Link>
       </p>

@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 
 import LogoImage from "@/../public/logo.png";
-import SignUpForm from "@/components/SignUpForm";
-import Link from "@/components/Link";
+import Link from "@/components/ui/Link";
+import { SignUp } from "@/features/auth";
 
 const SignUpPage = () => {
   return (
@@ -22,7 +22,7 @@ const SignUpPage = () => {
           Enter credentials for your account
         </p>
       </div>
-      <SignUpForm />
+      <SignUp />
       <p className="text-sm font-light text-black/50 mt-6 text-center">
         Already have an account? <Link href="/sign-in">Sign in here!</Link>
       </p>

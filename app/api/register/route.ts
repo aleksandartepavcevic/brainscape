@@ -1,4 +1,4 @@
-import { SignUpFormValues } from "@/components/SignUpForm/SingUpForm.types";
+import { SignUpFormValues } from "@/features/auth/sign-up/SingUp.types";
 import EmailVerification from "@/emails/email-verification";
 import { db } from "@/lib/db";
 import { resend } from "@/lib/resend";
@@ -14,29 +14,17 @@ export async function POST(req: Request) {
   try {
     const body: SignUpFormValues = await req.json();
 
-    const userExistsWithEmail = await db.user.findFirst({
+    await db.user.findFirst({
       where: {
         email: body.email,
       },
     });
 
-    const userExistsWithUsername = await db.user.findFirst({
+    await db.user.findFirst({
       where: {
         username: body.username,
       },
     });
-
-    if (userExistsWithEmail)
-      return NextResponse.json(
-        { message: "User already exists with this email.", field: "email" },
-        { status: 409 }
-      );
-
-    if (userExistsWithUsername)
-      return NextResponse.json(
-        { message: "Username is already taken.", field: "username" },
-        { status: 409 }
-      );
 
     const hash = await bcrypt.hash(body.password, saltRounds);
 
@@ -66,7 +54,21 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
+    // if (userExistsWithEmail)
+    //   return NextResponse.json(
+    //     { message: "User already exists with this email.", field: "email" },
+    //     { status: 409 }
+    //   );
+
+    // if (userExistsWithUsername)
+    //   return NextResponse.json(
+    //     { message: "Username is already taken.", field: "username" },
+    //     { status: 409 }
+    //   );
     console.log(error);
-    return NextResponse.json({ error: "Internal Server Error" });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

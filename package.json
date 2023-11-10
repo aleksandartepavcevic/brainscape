@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.6.1",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "framer-motion": "^10.16.4",
     "nanoid": "^4.0.2",
     "next": "13.4.9",
     "next-auth": "^4.22.1",
